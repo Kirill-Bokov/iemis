@@ -118,13 +118,38 @@ export class ProductionReportsService {
     }
   }
   
-
-  // Пример метода для получения всех отчётов
   findAll(): Promise<ProductionReport[]> {
     return this.productionReportRepo.find({
       relations: ['product', 'responsible', 'materials', 'materials.rawMaterial'],
     });
   }  
+
+async getProductionCost(reportId: string): Promise<{ totalCost: number, costPerUnit: number }> {
+  const report = await this.productionReportRepo.findOne({
+    where: { id: reportId },
+    relations: ['product'],
+  });
+
+  if (!report) {
+    throw new NotFoundException(`Report with id ${reportId} not found`);
+  }
+
+  const materials = await this.productionMaterialRepo.find({
+    where: { productionReport: { id: reportId } },
+    relations: ['rawMaterial'],
+  });
+
+  const totalCost = materials.reduce((sum, material) => {
+    return sum + material.quantity * material.rawMaterial.price;
+  }, 0);
+
+  const costPerUnit = report.quantity > 0 ? totalCost / report.quantity : 0;
+
+  return {
+    totalCost,
+    costPerUnit,
+  };
+}
 
   async findOne(id: string): Promise<ProductionReport> {
     const report = await this.productionReportRepo.findOne({
