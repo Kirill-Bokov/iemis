@@ -121,8 +121,10 @@ export class ProductionReportsService {
 
   // Пример метода для получения всех отчётов
   findAll(): Promise<ProductionReport[]> {
-    return this.productionReportRepo.find({ relations: ['materials'] });
-  }
+    return this.productionReportRepo.find({
+      relations: ['product', 'responsible', 'materials', 'materials.rawMaterial'],
+    });
+  }  
 
   async findOne(id: string): Promise<ProductionReport> {
     const report = await this.productionReportRepo.findOne({

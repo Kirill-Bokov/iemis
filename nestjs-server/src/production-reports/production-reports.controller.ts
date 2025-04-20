@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { ProductionReportsService } from './production-reports.service';
 import { CreateProductionReportDto } from './dto/create-production-report.dto';
-import { UpdateProductionReportDto } from './dto/update-production-report.dto';
+//import { UpdateProductionReportDto } from './dto/update-production-report.dto';
 
 @Controller('production-reports')
 export class ProductionReportsController {
@@ -19,16 +19,16 @@ export class ProductionReportsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.productionReportsService.findOne(+id);
+    return this.productionReportsService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProductionReportDto: UpdateProductionReportDto) {
-    return this.productionReportsService.update(+id, updateProductionReportDto);
-  }
+  //@Patch(':id')
+  //update(@Param('id') id: string, @Body() updateProductionReportDto: UpdateProductionReportDto) {
+    //return this.productionReportsService.update(id, updateProductionReportDto);
+  //}
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.productionReportsService.remove(+id);
+    return this.productionReportsService.remove(id);
   }
 }

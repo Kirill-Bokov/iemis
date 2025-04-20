@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { RawMaterial } from 'src/raw-materials/entities/raw-material.entity';
 
 @Entity('raw_storage')
@@ -7,11 +7,12 @@ export class RawStorage {
   id: string;
 
   @ManyToOne(() => RawMaterial)
+  @JoinColumn({ name: 'raw_material_id' })
   raw_material: RawMaterial;
 
-  @Column()
+  @Column({ name: 'quantity' })
   quantity: number;
 
-  @Column({ type: 'timestamptz' })
+  @Column({ name: 'date_of_receipt', type: 'timestamptz' })
   date_of_receipt: Date;
 }

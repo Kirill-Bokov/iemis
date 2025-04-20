@@ -20,13 +20,13 @@ import { ProductStorageModule } from './product-storage/product-storage.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'db.vjihbbrrjpjobfdljhds.supabase.co',
+      host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'your_password',
-      database: 'postgres',
+      password: 'mLbr%@.-G.890n^]albYUI3#',
+      database: 'iemisdb',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: false,
+      synchronize: true,
     }),
     ClientsModule,
     OrdersModule,
