@@ -13,18 +13,20 @@ import { PurchaseItemsModule } from './purchase-items/purchase-items.module';
 import { PurchasesModule } from './purchases/purchases.module';
 import { SuppliersModule } from './suppliers/suppliers.module';
 import { RawMaterialsModule } from './raw-materials/raw-materials.module';
+import { RawStorageModule } from './raw-storage/raw-storage.module';
+import { ProductStorageModule } from './product-storage/product-storage.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'db_url',
+      host: 'db.vjihbbrrjpjobfdljhds.supabase.co',
       port: 5432,
       username: 'postgres',
       password: 'your_password',
-      database: 'your_db_name',
+      database: 'postgres',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: false, // Используй миграции!
+      synchronize: false,
     }),
     ClientsModule,
     OrdersModule,
@@ -39,6 +41,8 @@ import { RawMaterialsModule } from './raw-materials/raw-materials.module';
     ProductionMaterialsModule,
     ProductionReportsModule,
     PurchaseItemsModule,
+    RawStorageModule,
+    ProductStorageModule,
   ],
 })
 export class AppModule {}
