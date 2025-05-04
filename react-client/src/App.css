@@ -1,42 +1,81 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html,
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  background-color: #f4f4f4;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+  border-bottom: 2px solid #999999;
+}
+
+footer {
+  border-top: 2px solid #999999;
+}
+
+header,
+footer {
+  background-color: #f0f0f0;
+  padding: 10px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+main {
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.display-panel {
+  display: flex;
+  flex: 1;
+  gap: 10px;
+  height: 100%;
+  max-height: 100vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.input-panel {
+  flex: 0 0 30%;
+  border-right: 2px solid #999999;
+  padding: 10px;
 }
 
-.card {
-  padding: 2em;
+.output-panel {
+  flex: 1;
+  padding-inline: 2vw;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-.read-the-docs {
-  color: #888;
+.control-panel {
+  border-right: 2px solid #999999;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.report-list {
+  max-height: 1vh;
+}
+
+.report-card {
+  padding-bottom: 20px;
 }
