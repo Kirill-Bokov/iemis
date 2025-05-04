@@ -1,11 +1,12 @@
 import React from "react";
 
-const InputPanel: React.FC = () => {
-  return (
-    <div className="input-panel">
-      <p>Панель ввода</p>
-    </div>
-  );
+type Props = {
+  children: React.ReactNode;
+};
+
+const InputPanel: React.FC<Props> = ({ children }) => {
+  return <div className="input-panel">{children}</div>;
 };
 
 export default InputPanel;
+

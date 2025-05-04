@@ -79,3 +79,27 @@ main {
 .report-card {
   padding-bottom: 20px;
 }
+
+.filter-form {
+  flex: 1;
+}
+
+.filter-form input {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+  font-size: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.filter-form input:focus {
+  border-color: #005f99;
+  box-shadow: 0 0 5px rgba(0, 95, 153, 0.3);
+  outline: none;
+}
