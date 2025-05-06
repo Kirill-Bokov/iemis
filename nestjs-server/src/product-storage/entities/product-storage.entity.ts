@@ -1,18 +1,25 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { Product } from 'src/products/entities/product.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  CreateDateColumn,
+} from "typeorm";
+import { Product } from "src/products/entities/product.entity";
 
-@Entity('product_storage')
+@Entity("product_storage")
 export class ProductStorage {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @ManyToOne(() => Product)
-  @JoinColumn({ name: 'product_id' })
+  @JoinColumn({ name: "product_id" })
   product: Product;
 
-  @Column({ name: 'quantity' })
+  @Column({ name: "quantity" })
   quantity: number;
 
-  @Column({ type: 'timestamptz', name: 'date_of_receipt' })
-  date_of_receipt: Date;
+  @CreateDateColumn({ name: "date_of_receipt" })
+  dateOfReceipt: Date;
 }

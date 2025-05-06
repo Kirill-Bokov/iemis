@@ -13,6 +13,7 @@ export class RawStorage {
   @Column({ name: 'quantity' })
   quantity: number;
 
-  @Column({ name: 'date_of_receipt', type: 'timestamptz' })
+  @Column({ name: 'date_of_receipt', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   date_of_receipt: Date;
+  
 }

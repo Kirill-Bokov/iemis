@@ -8,8 +8,8 @@ export class RawStorageController {
   constructor(private readonly rawStorageService: RawStorageService) {}
 
   @Post()
-  create(@Body() createRawStorageDto: CreateRawStorageDto) {
-    return this.rawStorageService.create(createRawStorageDto);
+  create(@Body() dto: CreateRawStorageDto) {
+    return this.rawStorageService.create(dto);
   }
 
   @Get()
@@ -19,16 +19,16 @@ export class RawStorageController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.rawStorageService.findOne(+id);
+    return this.rawStorageService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRawStorageDto: UpdateRawStorageDto) {
-    return this.rawStorageService.update(+id, updateRawStorageDto);
+  update(@Param('id') id: string, @Body() dto: UpdateRawStorageDto) {
+    return this.rawStorageService.update(id, dto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.rawStorageService.remove(+id);
+    return this.rawStorageService.remove(id);
   }
 }

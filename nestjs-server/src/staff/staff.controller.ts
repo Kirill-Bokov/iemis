@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Req } from '@nestjs/common';
+import { Request } from 'express';
 import { StaffService } from './staff.service';
 import { CreateStaffDto } from './dto/create-staff.dto';
 import { UpdateStaffDto } from './dto/update-staff.dto';
@@ -8,7 +9,7 @@ export class StaffController {
   constructor(private readonly staffService: StaffService) {}
 
   @Post()
-  create(@Body() createStaffDto: CreateStaffDto) {
+  create(@Req() req: Request, @Body() createStaffDto: CreateStaffDto) {
     return this.staffService.create(createStaffDto);
   }
 
@@ -19,16 +20,17 @@ export class StaffController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.staffService.findOne(+id);
+    return this.staffService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateStaffDto: UpdateStaffDto) {
-    return this.staffService.update(+id, updateStaffDto);
+    return this.staffService.update(id, updateStaffDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.staffService.remove(+id);
+    return this.staffService.remove(id);
   }
 }
+

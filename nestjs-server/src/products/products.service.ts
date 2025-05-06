@@ -1,26 +1,55 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { Product } from './entities/product.entity';
 
 @Injectable()
 export class ProductsService {
-  create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+  constructor(
+    @InjectRepository(Product)
+    private readonly productRepo: Repository<Product>,
+  ) {}
+
+  async create(createProductDto: CreateProductDto): Promise<Product> {
+    const product = this.productRepo.create(createProductDto);
+    return await this.productRepo.save(product);
   }
 
-  findAll() {
-    return `This action returns all products`;
+  async update(id: string, updateProductDto: UpdateProductDto): Promise<Product> {
+    const product = await this.productRepo.findOne({ where: { id } });
+
+    if (!product) {
+      throw new NotFoundException(`Продукт с ID ${id} не найден`);
+    }
+
+    const updated = this.productRepo.merge(product, updateProductDto);
+    return await this.productRepo.save(updated);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async findAll(): Promise<Product[]> {
+    return this.productRepo.find();
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  async findOne(id: string): Promise<Product> {
+    const product = await this.productRepo.findOne({ where: { id } });
+
+    if (!product) {
+      throw new NotFoundException(`Продукт с ID ${id} не найден`);
+    }
+
+    return product;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: string): Promise<void> {
+    const product = await this.productRepo.findOne({ where: { id } });
+
+    if (!product) {
+      throw new NotFoundException(`Продукт с ID ${id} не найден`);
+    }
+
+    await this.productRepo.remove(product);
   }
 }
+

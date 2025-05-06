@@ -10,7 +10,7 @@ export class Staff {
   name: string;
 
   @Column({ name: 'job_title' })
-  jobTitle: string;
+  job_title: string;
 
   @Column()
   phone: string;

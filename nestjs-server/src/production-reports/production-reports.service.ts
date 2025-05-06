@@ -34,7 +34,7 @@ export class ProductionReportsService {
     await queryRunner.startTransaction();
   
     try {
-      // 1. Проверка наличия и вычитание материалов
+      // 1. Проверка наличия и вычитание сырья
       for (const item of createDto.materials) {
         const storage = await queryRunner.manager.findOne(RawStorage, {
           where: { raw_material: { id: item.raw_material_id } },
@@ -53,7 +53,7 @@ export class ProductionReportsService {
         await queryRunner.manager.save(storage);
       }
   
-      // 2. Получение связанных сущностей: product и responsible
+      // 2. Получение связанных сущностей: продукт и сотрудник
       const product = await queryRunner.manager.findOne(Product, {
         where: { id: createDto.product_id },
       });
@@ -67,37 +67,32 @@ export class ProductionReportsService {
       }
   
       if (!responsible) {
-        throw new NotFoundException(`Ответственное лицо с ID ${createDto.responsible_id} не найдено`);
+        throw new NotFoundException(`Сотрудник с ID ${createDto.responsible_id} не найден`);
       }
   
-      // 3. Создание отчёта
       const report = this.productionReportRepo.create({
         product,
         quantity: createDto.quantity,
         responsible,
-        date: new Date(),
       });
-  
+
       const savedReport = await queryRunner.manager.save(report);
   
-      // 4. Сохранение использованных материалов
       for (const item of createDto.materials) {
         const material = this.productionMaterialRepo.create({
-          rawMaterial: { id: item.raw_material_id },  // Обновляем на использование объекта, а не ID
+          rawMaterial: { id: item.raw_material_id },
           quantity: item.quantity,
-          productionReport: savedReport,  // Обновляем на использование объекта, а не ID
+          productionReport: savedReport,
         });
         await queryRunner.manager.save(material);
       }
   
-      // 5. Обновление product_storage
       let productStorage = await queryRunner.manager.findOne(ProductStorage, {
         where: { product: { id: createDto.product_id } },
         relations: ['product'],
       });
   
       if (!productStorage) {
-        // если продукта нет на складе — создать запись
         productStorage = this.productStorageRepo.create({
           product,
           quantity: createDto.quantity,
@@ -124,33 +119,6 @@ export class ProductionReportsService {
     });
   }  
 
-async getProductionCost(reportId: string): Promise<{ totalCost: number, costPerUnit: number }> {
-  const report = await this.productionReportRepo.findOne({
-    where: { id: reportId },
-    relations: ['product'],
-  });
-
-  if (!report) {
-    throw new NotFoundException(`Report with id ${reportId} not found`);
-  }
-
-  const materials = await this.productionMaterialRepo.find({
-    where: { productionReport: { id: reportId } },
-    relations: ['rawMaterial'],
-  });
-
-  const totalCost = materials.reduce((sum, material) => {
-    return sum + material.quantity * material.rawMaterial.price;
-  }, 0);
-
-  const costPerUnit = report.quantity > 0 ? totalCost / report.quantity : 0;
-
-  return {
-    totalCost,
-    costPerUnit,
-  };
-}
-
   async findOne(id: string): Promise<ProductionReport> {
     const report = await this.productionReportRepo.findOne({
       where: { id },
@@ -163,6 +131,7 @@ async getProductionCost(reportId: string): Promise<{ totalCost: number, costPerU
   
     return report;
   }
+
   async remove(id: string): Promise<void> {
     const report = await this.productionReportRepo.findOne({
       where: { id },

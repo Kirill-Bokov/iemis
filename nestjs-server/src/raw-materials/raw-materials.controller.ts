@@ -1,34 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { RawMaterialsService } from './raw-materials.service';
+import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { RawMaterialService } from './raw-materials.service';
 import { CreateRawMaterialDto } from './dto/create-raw-material.dto';
 import { UpdateRawMaterialDto } from './dto/update-raw-material.dto';
 
-@Controller('raw-materials')
-export class RawMaterialsController {
-  constructor(private readonly rawMaterialsService: RawMaterialsService) {}
+@Controller('raw-material')
+export class RawMaterialController {
+  constructor(private readonly rawMaterialService: RawMaterialService) {}
 
   @Post()
-  create(@Body() createRawMaterialDto: CreateRawMaterialDto) {
-    return this.rawMaterialsService.create(createRawMaterialDto);
+  async create(@Body() dto: CreateRawMaterialDto) {
+    return this.rawMaterialService.create(dto);
   }
 
   @Get()
-  findAll() {
-    return this.rawMaterialsService.findAll();
+  async findAll() {
+    return this.rawMaterialService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.rawMaterialsService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return this.rawMaterialService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRawMaterialDto: UpdateRawMaterialDto) {
-    return this.rawMaterialsService.update(+id, updateRawMaterialDto);
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() dto: UpdateRawMaterialDto) {
+    return this.rawMaterialService.update(id, dto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.rawMaterialsService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return this.rawMaterialService.remove(id);
   }
 }
