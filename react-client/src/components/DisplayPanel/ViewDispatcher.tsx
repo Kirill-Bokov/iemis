@@ -10,7 +10,7 @@ interface Props {
 export const ViewDispatcher = ({ entity, operation }: Props) => {
   const Component = operationViewMap[entity]?.[operation]
 
-  if (!Component) return <div>Компонент не найден</div>
+  if (!Component) return <div className='no-such-action'>Не существует такого действия для этой таблицы</div>
 
   return (
     <Suspense fallback={<div>Идёт загрузка компонента...</div>}>

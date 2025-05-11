@@ -1,5 +1,5 @@
 interface Staff {
-    id: number
+    id: string
     name: string
     job_title: string
     phone: string

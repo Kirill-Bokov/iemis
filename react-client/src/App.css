@@ -93,7 +93,6 @@ main {
   border: 1px solid #999;
   border-radius: 4px;
   background-color: #fff;
-  color: #333;
   font-size: 16px;
   transition: border-color 0.3s, box-shadow 0.3s;
 }

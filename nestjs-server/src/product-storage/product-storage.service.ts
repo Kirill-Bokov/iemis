@@ -1,26 +1,42 @@
-import { Injectable } from '@nestjs/common';
-import { CreateProductStorageDto } from './dto/create-product-storage.dto';
-import { UpdateProductStorageDto } from './dto/update-product-storage.dto';
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import { ProductStorage } from './entities/product-storage.entity'
+import { CreateProductStorageDto } from './dto/create-product-storage.dto'
+//import { UpdateProductStorageDto } from './dto/update-product-storage.dto'
 
 @Injectable()
 export class ProductStorageService {
-  create(createProductStorageDto: CreateProductStorageDto) {
-    return 'This action adds a new productStorage';
+  constructor(
+    @InjectRepository(ProductStorage)
+    private readonly productStorageRepository: Repository<ProductStorage>,
+  ) {}
+
+  async create(createProductStorageDto: CreateProductStorageDto): Promise<ProductStorage> {
+    const storageItem = this.productStorageRepository.create(createProductStorageDto)
+    return this.productStorageRepository.save(storageItem)
   }
 
-  findAll() {
-    return `This action returns all productStorage`;
+  async findAll(): Promise<ProductStorage[]> {
+    return this.productStorageRepository.find({
+      relations: ['product'],
+      order: { dateOfReceipt: 'DESC' },
+    })
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} productStorage`;
-  }
+  //async findOne(id: string): Promise<ProductStorage> {
+    //return this.productStorageRepository.findOne({
+      //where: { id },
+      //relations: ['product'],
+   // })
+  //}
 
-  update(id: number, updateProductStorageDto: UpdateProductStorageDto) {
-    return `This action updates a #${id} productStorage`;
-  }
+//  async update(id: string, updateProductStorageDto: UpdateProductStorageDto): Promise<ProductStorage> {
+//    await this.productStorageRepository.update(id, updateProductStorageDto)
+//    return this.findOne(id)
+//  }
 
-  remove(id: number) {
-    return `This action removes a #${id} productStorage`;
+  async remove(id: string): Promise<void> {
+    await this.productStorageRepository.delete(id)
   }
 }

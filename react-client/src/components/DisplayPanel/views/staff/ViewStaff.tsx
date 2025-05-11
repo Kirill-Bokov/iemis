@@ -3,7 +3,7 @@ import apiClient from '../../../../axios'
 import StaffList from './StaffList'
 
 interface Staff {
-  id: number
+  id: string
   name: string
   job_title: string
   phone: string
@@ -15,12 +15,11 @@ const ViewStaff = () => {
 
   useEffect(() => {
     apiClient
-      .get('/staff') // добавить маршрут
+      .get('/staff')
       .then((res) => {
         console.log("ЕЩКЕРЕ", res.data)
         setStaff(res.data)})
       .catch(() => {
-        // добавить обработку ошибок
         setStaff([])
       })
   }, [])
@@ -34,7 +33,7 @@ const ViewStaff = () => {
 
   return (
     <div>
-      <h2>Список клиентов</h2>
+      <h2>Список сотрудников</h2>
       <input
         type="text"
         placeholder="Фильтр по имени"
