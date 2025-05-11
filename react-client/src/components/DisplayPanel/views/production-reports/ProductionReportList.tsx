@@ -76,7 +76,6 @@ const ProductionReportList = () => {
               <div>Количество: {report.quantity} {report.product.measure}</div>
               <div>Ответственный: {report.responsible.name}</div>
               <div>Дата: {new Date(report.date).toLocaleDateString()}</div>
-              <hr />
             </li>
           ))
         )}

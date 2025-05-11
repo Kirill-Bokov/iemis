@@ -31,3 +31,26 @@ button:hover {
   background-color: #3d5a5a;
 }
 
+select,
+input {
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 0.4em 0.8em;
+  font-size: 0.95em;
+  font-family: inherit;
+  background-color: #f0f0f0;
+  color: #2f4f4f;
+  transition: border-color 0.25s, background-color 0.25s;
+  outline: none;
+}
+
+select:hover,
+input:hover {
+  background-color: #e6e6e6;
+}
+
+select:focus,
+input:focus {
+  border-color: #999999;
+  background-color: #e6e6e6;
+}

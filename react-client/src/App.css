@@ -4,28 +4,16 @@
   box-sizing: border-box;
 }
 
-body,
-html,
-#root {
+html, body, #root {
   height: 100%;
   width: 100%;
-  display: flex;
-  background-color: #f4f4f4;
 }
 
 .app-container {
   display: flex;
   flex-direction: column;
+  height: 100vh;
   width: 100vw;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-header {
-  border-bottom: 2px solid #999999;
-}
-
-footer {
-  border-top: 2px solid #999999;
 }
 
 header,
@@ -33,72 +21,59 @@ footer {
   background-color: #f0f0f0;
   padding: 10px;
   text-align: center;
+  flex-shrink: 0;
+  border-bottom: 2px solid #999999;
 }
 
-main {
-  flex: 1;
-  padding: 10px;
+footer {
+  border-top: 2px solid #999999;
+}
+
+.app-main {
+  flex-grow: 1;
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
 .display-panel {
   display: flex;
-  flex: 1;
-  gap: 10px;
+  flex-grow: 1;
   height: 100%;
-  max-height: 100vh;
-}
-
-.input-panel {
-  flex: 0 0 30%;
-  border-right: 2px solid #999999;
-  padding: 10px;
-}
-
-.output-panel {
-  flex: 1;
-  padding-inline: 2vw;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .control-panel {
+  width: 250px;
   border-right: 2px solid #999999;
   padding: 10px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  overflow-y: auto;
 }
 
-.report-list {
-  max-height: 1vh;
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.report-card {
-  padding-bottom: 20px;
+.output-panel {
+  flex-grow: 1;
+  padding-inline: 2vw;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-.filter-form {
-  flex: 1;
+.output-panel__output > div {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.filter-form input {
-  display: block;
-  width: 100%;
-  max-width: 300px;
-  padding: 8px 12px;
-  margin-bottom: 10px;
-  border: 1px solid #999;
-  border-radius: 4px;
-  background-color: #fff;
-  font-size: 16px;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.filter-form input:focus {
-  border-color: #005f99;
-  box-shadow: 0 0 5px rgba(0, 95, 153, 0.3);
-  outline: none;
+.no-such-action {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

@@ -28,9 +28,9 @@ const ControlPanel: React.FC<Props> = ({ setEntity, setOperation }) => {
 
   return (
     <div className="control-panel">
-      <div>
-        <label>Таблица:</label>
-        <select onChange={(e) => setEntity(e.target.value as EntityType)}>
+      <div className="control-group">
+        <label htmlFor="entity-select">Таблица:</label>
+        <select id="entity-select" onChange={(e) => setEntity(e.target.value as EntityType)}>
           {entities.map((entity) => (
             <option key={entity} value={entity}>
               {entityLabels[entity]}
@@ -39,9 +39,9 @@ const ControlPanel: React.FC<Props> = ({ setEntity, setOperation }) => {
         </select>
       </div>
 
-      <div>
-        <label>Операция:</label>
-        <select onChange={(e) => setOperation(e.target.value as OperationType)}>
+      <div className="control-group">
+        <label htmlFor="operation-select">Операция:</label>
+        <select id="operation-select" onChange={(e) => setOperation(e.target.value as OperationType)}>
           {operations.map((op) => (
             <option key={op} value={op}>
               {operationLabels[op]}
@@ -54,4 +54,3 @@ const ControlPanel: React.FC<Props> = ({ setEntity, setOperation }) => {
 }
 
 export default ControlPanel
-

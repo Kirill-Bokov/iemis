@@ -99,8 +99,9 @@ const ViewProductionReport = () => {
                     <div>Сырьё: {material.rawMaterial.name}</div>
                     <div>Количество: {material.quantity} {material.rawMaterial.measure}</div>
                     <div>Цена за единицу: {material.rawMaterial.price}</div>
-                    <hr />
+                    <hr/>
                   </li>
+
                 ))}
               </ul>
             </div>

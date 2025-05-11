@@ -14,7 +14,10 @@ export const ViewDispatcher = ({ entity, operation }: Props) => {
 
   return (
     <Suspense fallback={<div>Идёт загрузка компонента...</div>}>
+          <div className='output-panel__output'>
       <Component />
+      </div>
     </Suspense>
+
   )
 }
